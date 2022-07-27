@@ -6,7 +6,7 @@ import api from "../api/api";
 import Input from "../components/Input";
 import Form from "../components/Form";
 import Button from "../components/Button";
-import Card from "../components/Card";
+import Cards from "../components/Cards";
 import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
 import NotFound from "../components/NotFound";
@@ -38,7 +38,7 @@ const Index = () => {
     setIsNotFound(false);
     setIsLoading(true);
     setCardsData([]);
-    console.log(inputValue)
+    console.log(inputValue);
     api
       .getCards(inputValue)
       .then((res) => {
@@ -86,18 +86,10 @@ const Index = () => {
               isButtonActive={isButtonActive}
             />
           </Form>
-          {isLoading && <Loading>Loading...</Loading>}
+          {isLoading && <Loading />}
           <section className="App-cards">
             {isNotFound && <NotFound />}
-            {currentTableData.map((card) => (
-              <Link href={`/${card.id}`}>
-                <Card
-                  {...card}
-                  key={card.id}
-                  onCardClick={setCardClicked}
-                />
-              </Link>
-            ))}
+            <Cards currentTableData={currentTableData}></Cards>
           </section>
           <Pagination
             className="App-pagination"
@@ -128,6 +120,8 @@ const Index = () => {
 
         .App-cards {
           margin-top: 60px;
+          list-style-type: none;
+          padding: 0;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;

@@ -1,23 +1,28 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Card(props) {
-  const { id, link, title, subtitle, getCardId, onCardClick } = props;
-
-  const handleClick = (e) => {
-    getCardId(id);
-    onCardClick(true);
-  };
+  const { currentTableData } = props;
+  console.log(currentTableData);
 
   const truncate = (input) =>
     input.length > 140 ? `${input.substring(0, 140)}...` : input;
 
   return (
     <>
-      <div className="Card" onClick={handleClick}>
-        <img className="Card-image" src={link} alt={title} />
-        <h3 className="Card-title">{title}</h3>
-        <p className="Card-subtitle">{truncate(subtitle)}</p>
-      </div>
+      {currentTableData?.map((card) => (
+        <li key={card.id}>
+          <Link href={`/${card.id}`}>
+            <a>
+              <div className="Card">
+                <img className="Card-image" src={card.link} alt={card.title} />
+                <h3 className="Card-title">{card.title}</h3>
+                <p className="Card-subtitle">{truncate(card.subtitle)}</p>
+              </div>
+            </a>
+          </Link>
+        </li>
+      ))}
 
       <style jsx>{`
         .Card {
