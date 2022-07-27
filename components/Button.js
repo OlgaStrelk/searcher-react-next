@@ -5,10 +5,10 @@ import styles from "../styles/button.module.scss";
 export default function Button({ text, inputValue, isButtonActive }) {
   return (
     <button
-      className={styles.button}
-      // {classnames({button}, {
-      //   disabled: inputValue === "",
-      // })}
+      className={classnames(
+        styles.button,
+        inputValue === "" && styles.disabled
+      )}
       disabled={!isButtonActive}
     >
       {text}

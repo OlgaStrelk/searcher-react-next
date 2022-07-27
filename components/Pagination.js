@@ -40,9 +40,10 @@ const Pagination = (props) => {
       })}
     >
       <li
-        className={classnames(styles.pagination_item, {
-          disabled: currentPage === 1,
-        })}
+        className={classnames(
+          styles.pagination_item,
+          currentPage === 1 && styles.disabled
+        )}
         onClick={onPrevious}
       >
         <div className={classnames(styles.arrow, styles.left)} />
