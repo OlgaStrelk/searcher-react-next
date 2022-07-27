@@ -1,0 +1,44 @@
+import React from "react";
+
+export default function Input({ handleChange, value }) {
+  return (
+    <>
+      <input
+        onChange={handleChange}
+        value={value}
+        placeholder="Введите название пива"
+        className="Input"
+        required={true}
+      />
+      <style jsx>{`
+        .Input {
+          box-sizing: border-box;
+          padding-left: 10px;
+          color: #000;
+          width: 100%;
+          max-width: 684px;
+          height: 54px;
+          font-size: 14px;
+          border: 1px solid #c4c4c4;
+          border-radius: 3px;
+        }
+
+        ::placeholder {
+          /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #767676;
+          opacity: 1; /* Firefox */
+        }
+
+        :-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: #767676;
+        }
+
+        ::-ms-input-placeholder {
+          /* Microsoft Edge */
+          color: #767676;
+        }
+      `}</style>
+    </>
+  );
+}

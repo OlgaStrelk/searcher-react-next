@@ -1,23 +1,22 @@
-import "../styles/App.css";
+import Link from "next/link";
+import { useState, useMemo } from "react";
 
 import api from "../api/api";
 
-import Input from "./Input";
-import Form from "./Form";
-import Button from "./Button";
-import Card from "./Card";
-import Pagination from "./Pagination";
-import Loading from "./Loading";
-import NotFound from "./NotFound";
+import Input from "../components/Input";
+import Form from "../components/Form";
+import Button from "../components/Button";
+import Card from "../components/Card";
+import Pagination from "../components/Pagination";
+import Loading from "../components/Loading";
+import NotFound from "../components/NotFound";
 
 const Index = () => {
   const [inputValue, setInputValue] = useState("");
   const [cardsData, setCardsData] = useState([]);
-  const [selectedCardId, handleCardClick] = useState(null);
-  const [popupData, setPopupData] = useState(null);
+  const [cardPageData, setCardPageData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isCardClicked, setCardClicked] = useState(false);
-  const [openPopup, setOpenPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
@@ -30,34 +29,6 @@ const Index = () => {
       setIsButtonActive(false);
     }
     setIsButtonActive(true);
-  };
-
-  //открыть попап, если карточка кликнута
-  useEffect(() => {
-    if (isCardClicked === true) {
-      setIsLoading(true);
-      api
-        .getCardById(selectedCardId)
-        .then((res) => {
-          setPopupData({
-            link: res[0].image_url,
-            title: res[0].name,
-            subtitle: res[0].description,
-            tagline: res[0].tagline,
-            abv: res[0].abv,
-            food: res[0].food_pairing,
-          });
-          setOpenPopup(true);
-        })
-        .finally(() => setIsLoading(false));
-    }
-  }, [isCardClicked]);
-
-  //закрыть попап
-  const closePopup = () => {
-    setOpenPopup(false);
-    setCardClicked(false);
-    setPopupData(null);
   };
 
   //отправить запрос за карточками
@@ -85,6 +56,7 @@ const Index = () => {
           setCardsData(formattedData);
         }
       })
+      .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
   };
 
@@ -102,37 +74,73 @@ const Index = () => {
   };
 
   return (
-    <div className="App">
-      <div className="App-content">
-        <Form className="App-search" handleSubmit={handleSubmit}>
-          <Input handleChange={handleInput} value={inputValue} />
-          <Button
-            text={"Искать"}
-            inputValue={inputValue}
-            isButtonActive={isButtonActive}
-          />
-        </Form>
-        {isLoading && <Loading>Loading...</Loading>}
-        <section className="App-cards">
-          {isNotFound && <NotFound />}
-          {currentTableData.map((card) => (
-            <Card
-              {...card}
-              key={card.id}
-              getCardId={handleCardClick}
-              onCardClick={setCardClicked}
+    <>
+      <div className="App">
+        <div className="App-content">
+          <Form className="App-search" handleSubmit={handleSubmit}>
+            <Input handleChange={handleInput} value={inputValue} />
+            <Button
+              text={"Искать"}
+              inputValue={inputValue}
+              isButtonActive={isButtonActive}
             />
-          ))}
-        </section>
-        <Pagination
-          className="App-pagination"
-          currentPage={currentPage}
-          totalCount={cardsData.length}
-          pageSize={pageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+          </Form>
+          {isLoading && <Loading>Loading...</Loading>}
+          <section className="App-cards">
+            {isNotFound && <NotFound />}
+            {currentTableData.map((card) => (
+              <Link href={`/${card.id}`}>
+                <Card
+                  {...card}
+                  key={card.id}
+                  getCardId={handleCardClick}
+                  onCardClick={setCardClicked}
+                />
+              </Link>
+            ))}
+          </section>
+          <Pagination
+            className="App-pagination"
+            currentPage={currentPage}
+            totalCount={cardsData.length}
+            pageSize={pageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        </div>
       </div>
-    </div>
+      <style jsx>{`
+        .App {
+          text-align: center;
+          font-family: Helvetica, Arial, sans-serif;
+          color: #000;
+        }
+
+        .App-content {
+          max-width: 860px;
+          margin: 90px auto;
+        }
+
+        .App-search {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 24px;
+        }
+
+        .App-cards {
+          margin-top: 60px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin-bottom: 48px;
+        }
+
+        .App-pagination {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+      `}</style>
+    </>
   );
 };
 export default Index;
