@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState, useMemo } from "react";
 
 import api from "../api/api";
