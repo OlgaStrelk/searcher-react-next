@@ -14,10 +14,12 @@ export default function Card(props) {
         <li key={card.id}>
           <Link href={`/${card.id}`}>
             <a>
-              <div className="Card">
-                <img className="Card-image" src={card.link} alt={card.title} />
-                <h3 className="Card-title">{card.title}</h3>
-                <p className="Card-subtitle">{truncate(card.subtitle)}</p>
+              <div className="card">
+                <div className="container">
+                  <img className="image" src={card.link} alt={card.title} />
+                </div>
+                <h3 className="title">{card.title}</h3>
+                <p className="subtitle">{truncate(card.subtitle)}</p>
               </div>
             </a>
           </Link>
@@ -25,24 +27,27 @@ export default function Card(props) {
       ))}
 
       <style jsx>{`
-        .Card {
+        .card {
           width: 276px;
           font-size: 14px;
           margin-top: 30px;
           cursor: pointer;
         }
 
-        .Card:hover {
+        .card:hover {
           opacity: 0.7;
         }
 
-        .Card-image {
+        .container {
           width: 100%;
           height: 180px;
-          object-fit: contain;
         }
 
-        .Card-title {
+        .image {
+          height: 100%;
+        }
+
+        .title {
           text-align: center;
           font-weight: 700;
           margin-top: 20px;
@@ -50,7 +55,7 @@ export default function Card(props) {
           min-height: 38px;
         }
 
-        .Card-subtitle {
+        .subtitle {
           margin-top: 5px;
           color: #767676;
         }

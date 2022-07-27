@@ -75,66 +75,31 @@ const Index = () => {
   };
 
   return (
-    <>
-      <div className="App">
-        <div className="App-content">
-          <Form className="App-search" handleSubmit={handleSubmit}>
-            <Input handleChange={handleInput} value={inputValue} />
-            <Button
-              text={"Искать"}
-              inputValue={inputValue}
-              isButtonActive={isButtonActive}
-            />
-          </Form>
-          {isLoading && <Loading />}
-          <section className="App-cards">
-            {isNotFound && <NotFound />}
-            <Cards currentTableData={currentTableData}></Cards>
-          </section>
-          <Pagination
-            className="App-pagination"
-            currentPage={currentPage}
-            totalCount={cardsData.length}
-            pageSize={pageSize}
-            onPageChange={(page) => setCurrentPage(page)}
+    <div className="App">
+      <div className="App-content">
+        <Form className="App-search" handleSubmit={handleSubmit}>
+          <Input handleChange={handleInput} value={inputValue} />
+          <Button
+            text={"Искать"}
+            inputValue={inputValue}
+            isButtonActive={isButtonActive}
           />
-        </div>
+        </Form>
+        {isLoading && <Loading />}
+        {isNotFound && <NotFound />}
+
+        <ul className="App-cards">
+          <Cards currentTableData={currentTableData}></Cards>
+        </ul>
+        <Pagination
+          className="App-pagination"
+          currentPage={currentPage}
+          totalCount={cardsData.length}
+          pageSize={pageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
-      <style jsx>{`
-        .App {
-          text-align: center;
-          font-family: Helvetica, Arial, sans-serif;
-          color: #000;
-        }
-
-        .App-content {
-          max-width: 860px;
-          margin: 90px auto;
-        }
-
-        .App-search {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 24px;
-        }
-
-        .App-cards {
-          margin-top: 60px;
-          list-style-type: none;
-          padding: 0;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          margin-bottom: 48px;
-        }
-
-        .App-pagination {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-        }
-      `}</style>
-    </>
+    </div>
   );
 };
 export default Index;
