@@ -82,8 +82,10 @@ const Pagination = (props) => {
       <style jsx>
         {`
           .Pagination-container {
+            padding: 0;
             display: flex;
             list-style-type: none;
+            justify-content: center;
           }
           .Pagination-item {
             padding: 0 12px;

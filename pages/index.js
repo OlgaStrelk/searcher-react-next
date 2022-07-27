@@ -38,6 +38,7 @@ const Index = () => {
     setIsNotFound(false);
     setIsLoading(true);
     setCardsData([]);
+    console.log(inputValue)
     api
       .getCards(inputValue)
       .then((res) => {
@@ -93,7 +94,6 @@ const Index = () => {
                 <Card
                   {...card}
                   key={card.id}
-                  getCardId={handleCardClick}
                   onCardClick={setCardClicked}
                 />
               </Link>
