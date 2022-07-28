@@ -1,0 +1,27 @@
+.container {
+  text-align: center;
+  color: #000;
+}
+.main {
+  max-width: 860px;
+  margin: 90px auto;
+
+  .searcher {
+    margin-bottom: 24px;
+  }
+
+  .cards {
+    margin: 60px 0 48px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style-type: none;
+  }
+
+  .pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

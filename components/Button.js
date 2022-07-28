@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import styles from "../styles/button.module.scss";
+import styles from "../styles/Button.module.scss";
 
 export default function Button({ text, inputValue, isButtonActive }) {
   return (
