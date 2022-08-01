@@ -1,1 +1,5 @@
-# searcher-react-next
+# Поисковик пива
+
+# Технологии:
+* Next.js
+* SCSS
