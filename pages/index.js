@@ -38,7 +38,11 @@ export default function Home() {
       <main className={styles.main}>
         <section className={styles.searcher}>
           <Form handleSubmit={handleSubmit}>
-            <Input handleChange={handleInput} value={inputValue}></Input>
+            <Input
+              handleChange={handleInput}
+              value={inputValue}
+              text="Введите название пива"
+            ></Input>
             <Button
               text={"Искать"}
               inputValue={inputValue}
